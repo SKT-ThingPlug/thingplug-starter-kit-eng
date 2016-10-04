@@ -3,7 +3,7 @@
 
 This Starter Kit is a device and application simulator that helps to develop LoRa service environment using oneM2M API provided from SKT’s IoT platform, ThingPlug. Through this Starter Kit, it is possible to test diverse service scenarios quickly and easily. This Starter Kit is created to help developers to get used to the ThingPlug functions and services. Start with this Starter Kit to develop various IoT services in ThingPlug.
 
-<img src="./media/image4.png" width="482" height="169" />
+<img src="./media/image4.png"/>
 
 \[Figure 1\] Purpose of ThingPlug Starter Kit
 
