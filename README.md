@@ -72,7 +72,7 @@ Install the following tool to execute the Starter Kit.
 
 Download the compressed project file released in Git and then decompress the file into a temporary folder. Or you can clone the master version of github by using the following command.
 
-    git clone https://github.com/SKT-ThingPlug/thingplug-lora-starter-kit.git
+    git clone https://github.com/SKT-ThingPlug/thingplug-starter-kit-eng.git
 
 The decompressed or cloned folder contains the following major files.
 
@@ -96,7 +96,7 @@ The decompressed or cloned folder contains the following major files.
 
 There are several modifications required to change the number of the device.
 
-1.  `Add or delete the ``config_x.js`` and` `device_x.js`` files `(number should start with 1 consecutively)
+1.  Add or delete the `config_x.js` and `device_x.js` files (number should start with 1 consecutively)
 
 2.  Modify the node ID of `config_x.j`s
 
@@ -126,8 +126,8 @@ module.exports = {
   responseAddress : 'http://0.0.0.0',         		// Physical address (mga) of device for controlling the device in HTTP version
   responsePORT : '0000',                        	// Physical address (local port) of device for controlling the device in HTTP version
 
-  userID : 'userID',                            	// MQTT버전에서 Broker 접속을 위한 ID, 포털 ID 사용
-  mqttClientId : 'Please Make Ramdom Value_1',    	// MQTT버전에서 Broker 접속을 위한 client ID
+  userID : 'userID',                            	// mqttClient username in thingplug.sktiot.com
+  mqttClientId : 'Please Make Ramdom Value_1',    	// To avoid any overlapping of client, it is necessary to use DeviceID or MacAddress
 
   nodeID : 'Please Type Your Own LTID',         	// Enter the unique ID to identify device (nodeID, CSE-ID)
   passCode : '000101',                          	// Register the passCode that will be used when registering device into the portal
@@ -159,8 +159,6 @@ module.exports = {
 > Necessary modifications when using device_mqtt<br>
 	userID, uKey, mqttClientId, nodeID, passCode                                                                                                                                                                      
                                                                                                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-
 <span id="device-실행" class="anchor"></span>
 
 ### Execute Device
@@ -185,7 +183,7 @@ module.exports = {
 
 -   `To send the actual sensor data to ThingPlug and receive relevant response from the application, ``modify the CON value, which is a parameter of ``contentInstance`` in ``device.js`` files.`
 
-<img src="./media/image9.png" width="714" height="63" />
+<img src="./media/image9.png" width="714" />
 
 `In the sample above, modify the ``value_Temp``.`
 
@@ -305,15 +303,21 @@ Example of Application\_web code
 
 \[Figure 8\] Console Log when device.js Received mgmtCmd Push Message
 
+```javascript
+
 *///////CODE EXAMPLE in device.js///////////*
 
+```
 1. Example of device\_http.js
+```javascript
 *////////////response for HTTP//////////////*
 httpRes.createServer(**function** (req, res) {
 ...*// Process the request and send response*
 }).listen(ResponsePORT);
+```
 
 2. Example of device\_mqtt.js
+```javascript
 *////////////response for MQTT//////////////*
 client.on('message',**function**(topic, message){
 **var**msgs=message.toString().split(',');
@@ -332,10 +336,11 @@ xml2js.parseString( msgs\[0\],**function**(err,xmlObj){
 **else**{
 }
 });
+```
 
 #### Register Trigger
 
-<img src="./media/image23.png" width="706" height="109" />
+<img src="./media/image23.png" width="706"/>
 
 Sends email notification when there is a particular event related to sensor data.
 
@@ -343,7 +348,7 @@ Nodemailer library is used. Use your email and smtp addresses to receive device 
 
 #### <span id="application-하는-일" class="anchor"><span id="web-application-실행" class="anchor"></span></span>Execute Web Application
 
-`Execute`` `Express.js server using` ``node application_w``eb.j``s` command. Open the web browser, access to the running server IP, and then execute the dashboard. Dashboard url for the virtual sensor is [http://\[SERVER\_IP\]:3000/dashboard](http://[SERVER_IP]:3000/dashboard). Execute `node device.js` to display the virtual sensor data on dashboard. To modify contents of the actual actions of the relevant application, modify the web page from `/public/index.html`` `file and then modify contents that are related to the actual actions from `/public/js/app.js` file.
+Execute Express.js server using `node application_web.js` command. Open the web browser, access to the running server IP, and then execute the dashboard. Dashboard url for the virtual sensor is [http://\[SERVER\_IP\]:3000/dashboard](http://[SERVER_IP]:3000/dashboard). Execute `node device.js` to display the virtual sensor data on dashboard. To modify contents of the actual actions of the relevant application, modify the web page from `/public/index.html`` `file and then modify contents that are related to the actual actions from `/public/js/app.js` file.
 
 > <img src="./media/image24.png" width="501" height="687" />
 
