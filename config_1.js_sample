@@ -19,38 +19,38 @@ module.exports = {
 
   AppEUI : 'starterkittest',                   		// Application EUI
   DevEUI : 'DevEUI',								// Device EUI
-  version : 'v1_0',                             	// Application의 version
-  TPhost : 'thingplugtest.sktiot.com',      		// ThingPlug의 HOST Addresss
-  TPport : '9000',                             		// ThingPlug의 HTTP PORT 번호
+  version : 'v1_0',                             	// Application version(Basically v1_0)
+  TPhost : 'thingplug.sktiot.com',      			// ThingPlug HOST Addresss
+  TPport : '9000',                             		// ThingPlug HTTP PORT(for device_http & application)
 
-  responseAddress : 'http://0.0.0.0',         		// HTTP버전에서 디바이스 제어를 위한 디바이스의 물리적 주소 mga
-  responsePORT : '0000',                        	// HTTP버전에서 디바이스제어를 위한 디바이스의 물리적 주소의 로컬 포트
+  responseAddress : 'http://0.0.0.0',         		// Physical address (mga) of device for controlling the device(for device_http.js)
+  responsePORT : '0000',                        	// Physical address (local port) of device for controlling the device(for device_http.js)
 
-  userID : 'userID',                            	// MQTT버전에서 Broker 접속을 위한 ID, 포털 ID 사용
-  mqttClientId : 'Please Make Ramdom Value_1',    	// MQTT버전에서 Broker 접속을 위한 client ID
+  userID : 'userID',                            	// mqttClient username in thingplug.sktiot.com
+  mqttClientId : 'Please Make Ramdom Value_1',    	// To avoid any overlapping of client, it is necessary to use DeviceID or MacAddress
 
-  nodeID : 'Please Type Your Own LTID',         	// Device 구분을 위한 LTID, 디바이스 고유 ID 사용
-  passCode : '000101',                          	// ThingPlug에 Device등록 시 사용할 Device의 비밀번호
-  uKey : 'USER KEY FROM PORTAL',                	// Thingplug로그인 후, `마이페이지`에 있는 사용자 인증키
+  nodeID : 'Please Type Your Own LTID',         	// Device's unique ID to identify device (LTID in LoRa)
+  passCode : '000101',                          	// Password that will be used when registering device into the portal
+  uKey : 'USER KEY FROM PORTAL',                	// USER access token key from Portal(myPage)
 
-  containerName:'LoRa',                         	// starter kit에서 생성하고 사용할 container 이름 (임의지정)
-  DevReset : 'DevReset',                        	// starter kit에서 생성하고 사용할 제어 명령 DevReset
-  RepPerChange : 'RepPerChange',                	// starter kit에서 생성하고 사용할 제어 명령 RepPerChange
-  RepImmediate : 'RepImmediate',                	// starter kit에서 생성하고 사용할 제어 명령 RepImmediate
-  extDevMgmt : 'extDevMgmt',						// starter kit에서 생성하고 사용할 제어 명령 extDevMgmt
+  containerName:'LoRa',                         	// Container name that will be created and used in the Starter Kit (define temporarily)
+  DevReset : 'DevReset',                        	// Control command (DevReset) that will be created and used in the Starter Kit 
+  RepPerChange : 'RepPerChange',                	// Control command (RepPerChange) that will be created and used in the Starter Kit 
+  RepImmediate : 'RepImmediate',                	// Control command (RepImmediate) that will be created and used in the Starter Kit
+  extDevMgmt : 'extDevMgmt',						// Control command (extDevMgmt) that will be created and used in the Starter Kit
   
-  UPDATE_CONTENT_INTERVAL : 1000,					//contentInstance 생성주기
+  UPDATE_CONTENT_INTERVAL : 1000,					// Term of contentInstance (millisecond)
+ 
+  delimiter : ',',									// contents delimiter (using in app.js & virtual device)
   
-  BASE_TEMP : 30,
-  BASE_HUMID : 60,
-  BASE_LUX : 80,
- 
-  delimiter : ',',									// contents 구분자															
- 
-  contents : function(){															// Device에서 ThingPlug로 전달하는 실제 데이터 (contentInstance의 Attribute <con>)
-	var value_TEMP = (Math.floor(Math.random() * 5) + this.BASE_TEMP).toString();	// 가상의 온도값
-	var value_HUMID = (Math.floor(Math.random() * 5) + this.BASE_HUMID).toString();	// 가상의 습도값
-	var value_LUX = (Math.floor(Math.random() * 5) + this.BASE_LUX).toString();		// 가상의 조도값
+  BASE_TEMP : 30,									// virtual value of random Temperature value
+  BASE_HUMID : 60,									// virtual value of random Humidity value
+  BASE_LUX : 80,									// virtual value of random Brightness value
+   
+  contents : function(){															// Data from Device(contentInstance Attribute <con>)
+	var value_TEMP = (Math.floor(Math.random() * 5) + this.BASE_TEMP).toString();	// Virtual Temp value
+	var value_HUMID = (Math.floor(Math.random() * 5) + this.BASE_HUMID).toString();	// Virtual Humidity value
+	var value_LUX = (Math.floor(Math.random() * 5) + this.BASE_LUX).toString();		// Virtual Brightness value
 
 	return value_TEMP + this.delimiter + value_HUMID + this.delimiter + value_LUX;
   }
