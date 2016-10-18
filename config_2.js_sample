@@ -20,7 +20,7 @@ module.exports = {
   AppEUI : 'starterkittest',                   		// Application EUI
   DevEUI : 'DevEUI',								// Device EUI
   version : 'v1_0',                             	// Application version(Basically v1_0)
-  TPhost : 'thingplug.sktiot.com',      			// ThingPlug HOST Addresss
+  TPhost : 'onem2m.sktiot.com',      				// ThingPlug HOST Addresss
   TPport : '9000',                             		// ThingPlug HTTP PORT(for device_http & application)
 
   responseAddress : 'http://0.0.0.0',         		// Physical address (mga) of device for controlling the device(for device_http.js)
