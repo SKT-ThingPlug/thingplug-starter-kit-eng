@@ -259,7 +259,7 @@ Go to [http://\[SERVER\_IP\]:3000/dashboard](http://[SERVER_IP]:3000/dashboard) 
 
 In the above web page, it is possible to view the location of device and values of 3 virtual sensors, execute mgmtCmd that is predefined in the device, and send email notification by setting trigger when event occurs.
 
-<img src="./media/image19.png" width="346" height="211" />
+<img src="./media/image19.png" width="456"/>
 
 \[Figure 7\] Role of Application.js
 
