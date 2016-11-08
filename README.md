@@ -135,8 +135,6 @@ module.exports = {
 
   containerName:'LoRa',                         	// Container name that will be created and used in the Starter Kit (define temporarily)
   DevReset : 'DevReset',                        	// Control command (DevReset) that will be created and used in the Starter Kit 
-  RepPerChange : 'RepPerChange',                	// Control command (RepPerChange) that will be created and used in the Starter Kit 
-  RepImmediate : 'RepImmediate',                	// Control command (RepImmediate) that will be created and used in the Starter Kit
   extDevMgmt : 'extDevMgmt',						// Control command (extDevMgmt) that will be created and used in the Starter Kit
   
   UPDATE_CONTENT_INTERVAL : 1000,					//contentInstance Term
@@ -211,7 +209,7 @@ When two devices (B and C in the figure below) are registered under the user A, 
 
 \[Figure 6\] Necessity of uKey
 
-1.  **Sign up: [https://thingplugdev.sktiot.com](https://thingplug.sktiot.com/)**
+1.  **Sign up: [https://thingplug.sktiot.com](https://thingplug.sktiot.com/)**
 
 <img src="./media/image12.png" width="624" height="374" />
 
@@ -272,8 +270,7 @@ In the above web page, it is possible to view the location of device and values 
 | 1. Retrieve Content Instance      | Retrieve the latest content Instance.                                   | HTTP GET       |
 | 2. Request for mgmtCmd            | Send control command, which should be sent to device, to the ThingPlug. | HTTP POST      |
 | 2-1. DevReset                     | mgmtCmd for resetting LoRa device.                                      |                |
-| 2-2. RepPerChange                 | mgmtCmd for changing uplink (regular report) cycle of LoRa device.      |                |
-| 2-3. RepImmediate                 | mgmtCmd for the immediate report of LoRa device uplink (regular report) |                |
+| 2-2. extDevMgmt                   | mgmtCmd for external management Command.                                |                |
 | 3. Retrieve mgmtCmd exec Instance | Retrieve the status of control command sent to device.                  | HTTP GET       |
 | 4. Sensor Display                 | Show sensor data (temperature, humidity, brightness) in graphs.         | d3 API         |
 | 5. Google Map API                 | Show location of LoRa device.                                           | Google API     |
@@ -299,43 +296,36 @@ Example of Application\_web code
 <img src="./media/image21.png" width="494" height="322" />
 \[Figure 7-2\] Request for mgmtCmd Using Argument from CLI
 
-<img src="./media/image22.png" width="456" height="187" />
+<img src="./media/image22.png" height="187" />
 
 \[Figure 8\] Console Log when device.js Received mgmtCmd Push Message
 
-```javascript
 
-*///////CODE EXAMPLE in device.js///////////*
-
-```
 1. Example of device\_http.js
 ```javascript
-*////////////response for HTTP//////////////*
-httpRes.createServer(**function** (req, res) {
-...*// Process the request and send response*
+////////////response for HTTP//////////////
+httpRes.createServer(function (req, res) {
+... // Process the request and send response
 }).listen(ResponsePORT);
 ```
 
 2. Example of device\_mqtt.js
 ```javascript
-*////////////response for MQTT//////////////*
-client.on('message',**function**(topic, message){
-**var**msgs=message.toString().split(',');
-xml2js.parseString( msgs\[0\],**function**(err,xmlObj){
-...*// Process the request and send response*
-*/////////condition branch device.js//////////////////*
-**if**(cmt=='RepImmediate'){*// Report directly*
-...
-}
-**elseif**(cmt=='RepPerChange'){*// Change cycle*
-...
-}
-**elseif**(cmt=='DevReset'){*// Initialize the device*
-...
-}
-**else**{
-}
-});
+////////////response for MQTT//////////////
+client.on('message', function(topic, message){
+  var msgs=message.toString().split(',');
+  xml2js.parseString( msgs[0],function(err,xmlObj){
+    // Process the request and send response
+    /////////condition branch device.js//////////////////
+    if(cmt=='RepImmediate'){ // Report directly
+      ...
+    }
+    else if(cmt=='extDevMgmt'){// External Device Management
+      ...
+    }
+    else{
+    }
+  });
 ```
 
 #### Register Trigger
@@ -361,7 +351,7 @@ FAQ
 
 You are finished with preparing all the required settings for the SKT ThingPlug LoRa using this Starter Kit. Now make the service you want using the application and device codes. Contact [ThingPlug Developer Community](https://sandbox.sktiot.com/IoTPortal/cmmnty/cmmntyList) when you have any question while developing service.
 
-#### For more information of the Starter Kit, refer to the ThingPlug Guidebook.
+#### For more information of the Starter Kit, refer to the ThingPlug Guidebook.(Korean)
 
 Refer to the [IoT Service Development with ThingPlug](http://book.naver.com/bookdb/book_detail.nhn?bid=9766474).
 
