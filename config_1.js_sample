@@ -23,20 +23,21 @@ module.exports = {
   TPhost : 'onem2m.sktiot.com',      				// ThingPlug HOST Addresss
   TPport : '9000',                             		// ThingPlug HTTP PORT(for device_http & application)
 
-  responseAddress : 'http://0.0.0.0',         		// Physical address (mga) of device for controlling the device(for device_http.js)
+  responseAddress : 'http://0.0.0.0:0000',         	// Physical address (mga) of device for controlling the device(for device_http.js)
   responsePORT : '0000',                        	// Physical address (local port) of device for controlling the device(for device_http.js)
 
-  userID : 'userID',                            	// mqttClient username in thingplug.sktiot.com
-  mqttClientId : 'Please Make Ramdom Value_1',    	// To avoid any overlapping of client, it is necessary to use DeviceID or MacAddress
-
+  userID : 'userID',                            	// mqttClient username in thingplug portal
+  mqttClientId : function(){						// mqttClient client credential ID (ex : ThingPlugID_0001)
+	  var POST_FIX = '0001';	  
+	  return this.userID+'_'+POST_FIX;    	
+  },
+  
   nodeID : 'Please Type Your Own LTID',         	// Device's unique ID to identify device (LTID in LoRa)
   passCode : '000101',                          	// Password that will be used when registering device into the portal
   uKey : 'USER KEY FROM PORTAL',                	// USER access token key from Portal(myPage)
 
   containerName:'LoRa',                         	// Container name that will be created and used in the Starter Kit (define temporarily)
   DevReset : 'DevReset',                        	// Control command (DevReset) that will be created and used in the Starter Kit 
-  RepPerChange : 'RepPerChange',                	// Control command (RepPerChange) that will be created and used in the Starter Kit 
-  RepImmediate : 'RepImmediate',                	// Control command (RepImmediate) that will be created and used in the Starter Kit
   extDevMgmt : 'extDevMgmt',						// Control command (extDevMgmt) that will be created and used in the Starter Kit
   
   UPDATE_CONTENT_INTERVAL : 1000,					// Term of contentInstance (millisecond)
